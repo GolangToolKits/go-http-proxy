@@ -12,7 +12,7 @@ type GoProxy struct {
 }
 
 // Do Do
-func (p *GoProxy) Do(req *http.Request, obj interface{}) (bool, int) {
+func (p *GoProxy) Do(req *http.Request, obj any) (bool, int) {
 	var suc bool
 	var statusCode int
 	client := &http.Client{}

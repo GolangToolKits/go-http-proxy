@@ -14,7 +14,7 @@ type MockGoProxy struct {
 }
 
 // Do Do
-func (p *MockGoProxy) Do(req *http.Request, obj interface{}) (bool, int) {
+func (p *MockGoProxy) Do(req *http.Request, obj any) (bool, int) {
 	defer p.MockResp.Body.Close()
 	decoder := json.NewDecoder(p.MockResp.Body)
 	error := decoder.Decode(obj)

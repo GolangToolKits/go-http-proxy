@@ -62,7 +62,7 @@ func TestGoProxy_Do(t *testing.T) {
 
 	type args struct {
 		req *http.Request
-		obj interface{}
+		obj any
 	}
 	tests := []struct {
 		name  string
