@@ -1,0 +1,12 @@
+mode: set
+github.com/GolangToolKits/go-http-proxy/mockGoProxy.go:17.74,21.18 4 1
+github.com/GolangToolKits/go-http-proxy/mockGoProxy.go:26.2,26.41 1 1
+github.com/GolangToolKits/go-http-proxy/mockGoProxy.go:21.18,25.3 3 1
+github.com/GolangToolKits/go-http-proxy/mockGoProxy.go:30.35,32.2 1 1
+github.com/GolangToolKits/go-http-proxy/goProxy.go:15.70,20.16 5 1
+github.com/GolangToolKits/go-http-proxy/goProxy.go:36.2,36.24 1 1
+github.com/GolangToolKits/go-http-proxy/goProxy.go:20.16,24.3 3 1
+github.com/GolangToolKits/go-http-proxy/goProxy.go:24.8,28.19 4 1
+github.com/GolangToolKits/go-http-proxy/goProxy.go:28.19,31.4 2 1
+github.com/GolangToolKits/go-http-proxy/goProxy.go:31.9,34.4 2 1
+github.com/GolangToolKits/go-http-proxy/goProxy.go:40.31,42.2 1 1
