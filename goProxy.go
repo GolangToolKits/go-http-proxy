@@ -17,10 +17,14 @@ func (p *GoProxy) Do(req *http.Request, obj any) (bool, int) {
 	var statusCode int
 	client := &http.Client{}
 	resp, err := client.Do(req)
-	if err != nil {
+	if err != nil || resp.StatusCode != http.StatusOK {
 		log.Println("go-http-proxy Do err: ", err)
 		log.Println("resp in fail: ", resp)
-		statusCode = http.StatusNotFound
+		if resp != nil {
+			statusCode = resp.StatusCode
+		} else {
+			statusCode = http.StatusNotFound
+		}
 	} else {
 		defer resp.Body.Close()
 		decoder := json.NewDecoder(resp.Body)

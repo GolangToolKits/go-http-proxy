@@ -47,6 +47,7 @@ func TestGoProxy_New(t *testing.T) {
 func TestGoProxy_Do(t *testing.T) {
 
 	var sURL = "http://localhost:3002/rs/product/get/list/59/0/100"
+	var sURL4 = "http://localhost:3002/rs/product2/get/list/59/0/100"
 
 	r1, rErr := http.NewRequest("GET", sURL, nil)
 	if rErr != nil {
@@ -57,6 +58,15 @@ func TestGoProxy_Do(t *testing.T) {
 	r1.Header.Set("storeName", "defaultLocalStore")
 
 	r2, _ := http.NewRequest("GET", "http:///", nil)
+
+
+	r4, rErr4 := http.NewRequest("GET", sURL4, nil)
+	if rErr4 != nil {
+		fmt.Println("request error: ", rErr4)
+	}
+	r4.Header.Set("Content-Type", "application/json")
+	r4.Header.Set("apiKey", "GDG651GFD66FD16151sss651f651ff65555ddfhjklyy5")
+	r4.Header.Set("storeName", "defaultLocalStore")
 
 	var uRes []prod
 
@@ -98,6 +108,15 @@ func TestGoProxy_Do(t *testing.T) {
 			},
 			want:  false,
 			want1: 0,
+		},
+		{
+			name: "test 4",
+			args: args{
+				req: r4,
+				obj: uRes, //non pointer fail
+			},
+			want:  false,
+			want1: 404,
 		},
 	}
 	for _, tt := range tests {
