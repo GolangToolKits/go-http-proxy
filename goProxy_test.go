@@ -59,7 +59,6 @@ func TestGoProxy_Do(t *testing.T) {
 
 	r2, _ := http.NewRequest("GET", "http:///", nil)
 
-
 	r4, rErr4 := http.NewRequest("GET", sURL4, nil)
 	if rErr4 != nil {
 		fmt.Println("request error: ", rErr4)
@@ -129,6 +128,68 @@ func TestGoProxy_Do(t *testing.T) {
 			}
 			if got1 != tt.want1 {
 				t.Errorf("GoProxy.Do() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
+
+func TestGoProxy_DoNonJSON(t *testing.T) {
+
+	var url = "https://media.licdn.com/dms/image/C5603AQGRApW88KjOCA/profile-displayphoto-shrink_100_100/0/1516940037267?e=1691625600&v=beta&t=Ibi46xLe0v7RvwvFcBmhhWWWdr19bQtOJR3ebyrIt-k"
+	r, rErr := http.NewRequest("GET", url, nil)
+	if rErr != nil {
+		fmt.Println("request error: ", rErr)
+	}
+
+	r2, rErr2 := http.NewRequest("GET", "httppp:////", nil)
+	if rErr2 != nil {
+		fmt.Println("request error: ", rErr2)
+	}
+
+	type args struct {
+		req *http.Request
+	}
+	tests := []struct {
+		name  string
+		p     *GoProxy
+		args  args
+		want  bool
+		want1 int
+		want2 int
+	}{
+		// TODO: Add test cases.
+		{
+			name: "test 1",
+			args: args{
+				req: r,
+			},
+			want:  true,
+			want1: 200,
+			want2: 0,
+		},
+		{
+			name: "test 2",
+			args: args{
+				req: r2,
+			},
+			want:  false,
+			want1: 404,
+			want2: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			px := &GoProxy{}
+			p := px.New()
+			got, got1, got2 := p.DoNonJSON(tt.args.req)
+			if got != tt.want {
+				t.Errorf("GoProxy.DoNonJSON() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("GoProxy.DoNonJSON() got1 = %v, want %v", got1, tt.want1)
+			}
+			if len(got2) == tt.want2 {
+				t.Errorf("GoProxy.DoNonJSON() got2 = %v, want %v", got2, tt.want2)
 			}
 		})
 	}

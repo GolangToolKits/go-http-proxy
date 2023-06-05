@@ -3,6 +3,7 @@ package goproxy
 
 import (
 	"encoding/json"
+	"io"
 	"log"
 	"net/http"
 )
@@ -38,6 +39,33 @@ func (p *GoProxy) Do(req *http.Request, obj any) (bool, int) {
 		}
 	}
 	return suc, statusCode
+}
+
+// DoNonJSON DoNonJSON
+func (p *GoProxy) DoNonJSON(req *http.Request) (bool, int, []byte) {
+	var suc bool
+	var statusCode int
+	var rtn []byte
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil || resp.StatusCode != http.StatusOK {
+		log.Println("go-http-proxy Do err: ", err)
+		log.Println("resp in fail: ", resp)
+		if resp != nil {
+			statusCode = resp.StatusCode
+		} else {
+			statusCode = http.StatusNotFound
+		}
+	} else {
+		defer resp.Body.Close()
+		b, err := io.ReadAll(resp.Body)
+		if err == nil {
+			rtn = b
+			statusCode = resp.StatusCode
+			suc = true
+		}
+	}
+	return suc, statusCode, rtn
 }
 
 // New New proxy
