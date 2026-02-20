@@ -18,8 +18,14 @@ type loginRes struct {
 	Code  string `json:"code"`
 }
 
+//	type prod struct {
+//		ID int64 `json:"id"`
+//	}
 type prod struct {
-	ID int64 `json:"id"`
+	ID          int64   `json:"id"`
+	SKU         string  `json:"sku"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price"`
 }
 
 func TestGoProxy_New(t *testing.T) {
@@ -46,8 +52,8 @@ func TestGoProxy_New(t *testing.T) {
 
 func TestGoProxy_Do(t *testing.T) {
 
-	var sURL = "http://localhost:3002/rs/product/get/list/59/0/100"
-	var sURL4 = "http://localhost:3002/rs/product2/get/list/59/0/100"
+	var sURL = "http://localhost:3001/rs/product/get/123444"
+	var sURL4 = "http://localhost:3001/rs/product1/get/123444"
 
 	r1, rErr := http.NewRequest("GET", sURL, nil)
 	if rErr != nil {
@@ -67,7 +73,7 @@ func TestGoProxy_Do(t *testing.T) {
 	r4.Header.Set("apiKey", "GDG651GFD66FD16151sss651f651ff65555ddfhjklyy5")
 	r4.Header.Set("storeName", "defaultLocalStore")
 
-	var uRes []prod
+	var uRes prod
 
 	type args struct {
 		req *http.Request
@@ -135,7 +141,7 @@ func TestGoProxy_Do(t *testing.T) {
 
 func TestGoProxy_DoNonJSON(t *testing.T) {
 
-	var url = "https://media.licdn.com/dms/image/C5603AQGRApW88KjOCA/profile-displayphoto-shrink_100_100/0/1516940037267?e=1691625600&v=beta&t=Ibi46xLe0v7RvwvFcBmhhWWWdr19bQtOJR3ebyrIt-k"
+	var url = "https://williestactical.com/wp-content/uploads/2025/07/DEW17A.jpg"
 	r, rErr := http.NewRequest("GET", url, nil)
 	if rErr != nil {
 		fmt.Println("request error: ", rErr)
